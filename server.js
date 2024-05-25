@@ -1,15 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = process.env.PORT || 3000; // Use the port provided by Render or default to 3000
+const port = process.env.PORT || 10000;
 
 app.use(cors());
 app.use(express.json());
 
 app.use((req, res, next) => {
     res.setHeader(
-      'Content-Security-Policy',
-      "default-src 'self'; script-src 'self';"
+        'Content-Security-Policy',
+        "default-src 'self'; script-src 'self';"
     );
     next();
 });
@@ -153,11 +153,11 @@ function generateRoutine() {
             resolve(section);
         };
 
-        setImmediate(generate); // Break the work into the event loop
+        setImmediate(generate);
     });
 }
 
-app.post('/data', async (req, res) => {
+app.post('/', async (req, res) => {
     console.log('Request received');
     console.time('processRequest');
     const processedData = await generateRoutine();
