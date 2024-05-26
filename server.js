@@ -1,12 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = process.env.PORT || 10000;
+const port = 3000
 
 app.use(cors());
 app.use(express.json());
 
 app.use((req, res, next) => {
+    console.log(req.headers)
     res.setHeader(
         'Content-Security-Policy',
         "default-src 'self'; script-src 'self';"
@@ -20,6 +21,7 @@ function random(val) {
 
 function Algo(j, tch, val, box, k, i) {
     let cls = cls_ava(tch, val, random);
+    let  v = 0;
     if (j === 0) {
         tch[cls] = 1;
         return cls;
@@ -29,7 +31,14 @@ function Algo(j, tch, val, box, k, i) {
             return cls;
         } else {
             while (!check(box, cls)) {
+                
                 cls = cls_ava(tch, val, random);
+                v++;
+                if(v > val ){
+                    console.log("infinite loop")
+                     break;
+
+                }
             }
             tch[cls] = 1;
             return cls;
@@ -40,14 +49,21 @@ function Algo(j, tch, val, box, k, i) {
 function cls_ava(tch, val, random) {
     const attempted = new Set();
     const totalClasses = tch.length;
-
+    let v = 0;
     while (attempted.size < val && attempted.size < totalClasses) {
+        
         const cls = random(totalClasses);
         if (!attempted.has(cls)) {
             attempted.add(cls);
             if (tch[cls] === 0) {
                 return cls;
             }
+        }
+
+        v++;
+        if(v > val){
+            console.log("Infinite Loop in cls_ava");
+            break;
         }
     }
 
@@ -157,7 +173,7 @@ function generateRoutine() {
     });
 }
 
-app.post('/', async (req, res) => {
+app.post('/data', async (req, res) => {
     console.log('Request received');
     console.time('processRequest');
     const processedData = await generateRoutine();
