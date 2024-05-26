@@ -173,7 +173,7 @@ function generateRoutine() {
     });
 }
 
-app.post('/data', async (req, res) => {
+app.post('/', async (req, res) => {
     console.log('Request received');
     console.time('processRequest');
     const processedData = await generateRoutine();
