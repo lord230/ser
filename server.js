@@ -170,7 +170,7 @@ function generateRoutine(sec, days, cls) {
     });
 }
 
-app.post('/data', async (req, res) => {
+app.post('/', async (req, res) => {
     console.log('Request received');
     const { sec, days, cls } = req.body; // Extract sec, days, and cls from the request body
     console.log(sec,days,cls)
