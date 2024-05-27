@@ -172,7 +172,7 @@ app.post('/', async (req, res) => {
     const { sec, cls, val } = req.body; // Extract sec, days, and cls from the request body
     console.log(sec,cls,val)
     console.time('processRequest');
-    const processedData = await generateRoutine(sec, days, cls); // Pass the values to the routine generator
+    const processedData = await generateRoutine(sec,cls,val); // Pass the values to the routine generator
     console.timeEnd('processRequest');
     res.json(processedData);
 });
