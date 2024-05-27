@@ -170,7 +170,7 @@ function generateRoutine(sec, cls, val) {
 app.post('/', async (req, res) => {
     console.log('Request received');
     const { sec, cls, val } = req.body; // Extract sec, days, and cls from the request body
-    console.log(sec,days,cls,val)
+    console.log(sec,cls,val)
     console.time('processRequest');
     const processedData = await generateRoutine(sec, days, cls); // Pass the values to the routine generator
     console.timeEnd('processRequest');
