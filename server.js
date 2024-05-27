@@ -1,13 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = 3000
+const port = 3000;
 
 app.use(cors());
 app.use(express.json());
 
 app.use((req, res, next) => {
-    console.log(req.headers)
+    console.log(req.headers);
     res.setHeader(
         'Content-Security-Policy',
         "default-src 'self'; script-src 'self';"
@@ -21,7 +21,7 @@ function random(val) {
 
 function Algo(j, tch, val, box, k, i) {
     let cls = cls_ava(tch, val, random);
-    let  v = 0;
+    let v = 0;
     if (j === 0) {
         tch[cls] = 1;
         return cls;
@@ -98,12 +98,9 @@ function rotate2DArrayInside3DArrayClockwise(arr3D, layerIndex) {
     arr3D[layerIndex] = rotatedLayer;
 }
 
-function generateRoutine() {
+function generateRoutine(sec, days, cls) {
     return new Promise((resolve) => {
         console.time('generateRoutine');
-        let sec = 8;
-        let days = 5;
-        let cls = 6;
         const teacher = [
             'Alice', 'Bob', 'Charlie', 'David', 'Eva',
             'Frank', 'Grace', 'Hannah', 'Ivan', 'Julia'
@@ -173,10 +170,12 @@ function generateRoutine() {
     });
 }
 
-app.post('/', async (req, res) => {
+app.post('/data', async (req, res) => {
     console.log('Request received');
+    const { sec, days, cls } = req.body; // Extract sec, days, and cls from the request body
+    console.log(sec,days,cls)
     console.time('processRequest');
-    const processedData = await generateRoutine();
+    const processedData = await generateRoutine(sec, days, cls); // Pass the values to the routine generator
     console.timeEnd('processRequest');
     res.json(processedData);
 });
