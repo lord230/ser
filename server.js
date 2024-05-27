@@ -98,9 +98,10 @@ function rotate2DArrayInside3DArrayClockwise(arr3D, layerIndex) {
     arr3D[layerIndex] = rotatedLayer;
 }
 
-function generateRoutine(sec, days, cls, val) {
+function generateRoutine(sec, cls, val) {
     return new Promise((resolve) => {
         console.time('generateRoutine');
+        let days = 5;
 
         let z = 0;
         let section = [];
@@ -168,7 +169,7 @@ function generateRoutine(sec, days, cls, val) {
 
 app.post('/', async (req, res) => {
     console.log('Request received');
-    const { sec, days, cls, val } = req.body; // Extract sec, days, and cls from the request body
+    const { sec, cls, val } = req.body; // Extract sec, days, and cls from the request body
     console.log(sec,days,cls,val)
     console.time('processRequest');
     const processedData = await generateRoutine(sec, days, cls); // Pass the values to the routine generator
